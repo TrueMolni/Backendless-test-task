@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { lazy } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-function App() {
+import SharedLayout from "./components/SharedLayout";
+
+import { sortedData } from "./data/sorted";
+
+const App = () => {
+  const elements = sortedData.map((tab) => (
+    <Route
+      key={tab.id}
+      path={`/${tab.id.toLowerCase()}`}
+      element={React.createElement(lazy(() => import(`./${tab.path}`)))}
+    />
+  ));
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<SharedLayout />}>
+          <Route
+            index
+            element={React.createElement(
+              lazy(() => import(`./${sortedData[0].path}`))
+            )}
+          />
+          {elements}
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
