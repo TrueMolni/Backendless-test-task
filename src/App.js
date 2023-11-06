@@ -22,7 +22,7 @@ const App = () => {
             <Route
               index
               element={React.createElement(
-                lazy(() => import(`./${sortedData[0].path}`))
+                lazy(() => import(`${sortedData[0].path}`))
               )}
             />
             {elements}
