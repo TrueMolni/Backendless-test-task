@@ -15,7 +15,7 @@ const App = () => {
   ));
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="Backendless-test-task">
       <Routes>
         <Route path="/" element={<SharedLayout />}>
           <Route
